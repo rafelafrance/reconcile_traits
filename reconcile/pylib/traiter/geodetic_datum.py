@@ -1,11 +1,11 @@
-from typing import Any
+from typing import Any, ClassVar
 
-from ..base import Base
+from reconcile.pylib.base import Base
 
 
 class GeodeticDatum(Base):
-    label = "dwc:geodeticDatum"
-    aliases = Base.get_aliases(label, "datum")
+    label: ClassVar[str] = "dwc:geodeticDatum"
+    aliases: ClassVar[list[str]] = Base.get_aliases(label, "datum")
 
     @classmethod
     def reconcile(
@@ -13,6 +13,6 @@ class GeodeticDatum(Base):
     ) -> dict[str, str]:
         if o_val := cls.search(other, cls.aliases):
             return {cls.label: o_val}
-        elif t_val := traiter.get(cls.label):
+        if t_val := traiter.get(cls.label):
             return {cls.label: t_val}
         return {}

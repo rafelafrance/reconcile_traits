@@ -1,19 +1,21 @@
-from collections import namedtuple
-from typing import Any
+from typing import Any, ClassVar, NamedTuple
 
-from ..base import Base
+from reconcile.pylib.base import Base
 
-Label = namedtuple("Label", "label match")
+
+class Label(NamedTuple):
+    label: str
+    match: list[str]
 
 
 class TaxonName(Base):
-    sci_name_lb = "dwc:scientificName"
+    sci_name_lb: ClassVar[str] = "dwc:scientificName"
 
     # kingdom_lb = "dwc:kingdom"
     # phylum_lb = "dwc:phylum"
     # class_lb = "dwc:class"
     # order_lb = "dwc:order"
-    family_lb = "dwc:family"
+    family_lb: ClassVar[str] = "dwc:family"
     # subfamily_lb = "dwc:subfamily"
     # tribe_lb = "dwc:tribe"
     # subtribe_lb = "dwc:subtribe"
@@ -24,7 +26,7 @@ class TaxonName(Base):
     # infra_species_lb = "dwc:infraspecificEpithet"
     # cultivar_lb = "dwc:cultivarEpithet"
 
-    matches = [
+    matches: ClassVar[list[str]] = [
         Label(
             sci_name_lb,
             Base.get_aliases(

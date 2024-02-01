@@ -1,11 +1,11 @@
-from typing import Any
+from typing import Any, ClassVar
 
-from ..base import Base
+from reconcile.pylib.base import Base
 
 
 class CoordinatePrecision(Base):
-    label = "dwc:coordinatePrecision"
-    aliases = Base.get_aliases(label)
+    label: ClassVar[str] = "dwc:coordinatePrecision"
+    aliases: ClassVar[list[str]] = Base.get_aliases(label)
 
     @classmethod
     def reconcile(

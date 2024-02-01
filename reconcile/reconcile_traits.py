@@ -2,19 +2,16 @@
 import argparse
 import json
 import logging
-import os
 import sys
 import textwrap
 from collections import defaultdict
-from dataclasses import dataclass
-from dataclasses import field
+from dataclasses import dataclass, field
 from enum import IntEnum
 from pathlib import Path
 from pprint import pp
 from typing import Any
 
 import pylib.darwin_core as dwc
-from pylib import log
 from pylib.base import Template
 from pylib.flora.admin_unit import AdminUnit
 from pylib.flora.id_number import IdNumber
@@ -38,6 +35,9 @@ from pylib.traiter.minimum_elevation import MinimumElevationInMeters
 from pylib.traiter.verbatim_coordinates import VerbatimCoordinates
 from pylib.traiter.verbatim_elevation import VerbatimElevation
 from pylib.traiter.verbatim_system import VerbatimCoordinateSystem
+from util.pylib import log
+
+MIN_LEN = 2
 
 
 class Verbose(IntEnum):
@@ -59,25 +59,25 @@ class Row:
 
     def get_text(self, text_dir):
         path = text_dir / f"{self.stem}.txt"
-        with open(path) as f:
+        with path.open() as f:
             text = f.read()
         self.text = compress(text)
 
     def get_traiter(self, traiter_dir):
         path = traiter_dir / f"{self.stem}.json"
-        with open(path) as f:
+        with path.open() as f:
             self.traiter = json.load(f)
 
     def get_openai(self, openai_dir):
         path = openai_dir / f"{self.stem}.json"
-        with open(path) as f:
+        with path.open() as f:
             openai = json.load(f)
 
         new = {}
         for key, value in openai.items():
             new[key] = value
             if isinstance(value, dict):
-                new |= {k: v for k, v in value.items()}
+                new |= dict(value.items())
 
         self.openai = {clean_key(k): v for k, v in new.items()}
 
@@ -92,7 +92,7 @@ class Row:
 
     def save_traits(self, parsed_dir):
         path = parsed_dir / f"{self.stem}.json"
-        with open(path, "w") as f:
+        with path.open("w") as f:
             json.dump(self.reconciled, f, indent=4)
 
     def verbose(self, verbose):
@@ -126,15 +126,15 @@ def main():
     log.started()
     args = parse_args()
 
-    text_stems = set(p.stem for p in args.text_dir.glob("*"))
-    traiter_stems = set(p.stem for p in args.traiter_dir.glob("*"))
-    openai_stems = set(p.stem for p in args.openai_dir.glob("*"))
+    text_stems = {p.stem for p in args.text_dir.glob("*")}
+    traiter_stems = {p.stem for p in args.traiter_dir.glob("*")}
+    openai_stems = {p.stem for p in args.openai_dir.glob("*")}
 
-    os.makedirs(args.formatted_dir, exist_ok=True)
+    args.formatted_dir.mkdir(parents=True, exist_ok=True)
 
     stems = sorted(text_stems & openai_stems & traiter_stems)
 
-    logging.info(
+    msg = (
         f"Text: {len(text_stems)}, "
         f"Traiter: {len(traiter_stems)}, "
         f"OpenAI: {len(openai_stems)}, "
@@ -142,6 +142,7 @@ def main():
         f"All numbers the same: "
         f"{len(text_stems) == len(openai_stems) == len(stems) == len(traiter_stems)}."
     )
+    logging.info(msg)
 
     if args.stem:
         stems = [s for s in stems if s == args.stem]
@@ -194,12 +195,14 @@ def main():
 
             total_errors += len(row.errors)
             if total_errors > args.max_errors:
-                logging.error(f"Max errors of {args.max_errors} exceeded")
+                msg = f"Max errors of {args.max_errors} exceeded"
+                logging.error(msg)
                 sys.exit(1)
 
         show_missed_keys(rows, args.verbose)
 
-        logging.info(f"Total errors: {total_errors}")
+        msg = f"Total errors: {total_errors}"
+        logging.info(msg)
     log.finished()
 
 
@@ -210,7 +213,7 @@ def clean_key(key) -> str:
     key = key.strip(":")
     key = key.strip()
 
-    if len(key) > 2:
+    if len(key) > MIN_LEN:
         key = key[0].lower() + key[1:]
 
     key = dwc.ns(key)
@@ -241,10 +244,10 @@ def count_keys(dir_) -> dict[str, int]:
     keys = defaultdict(int)
 
     for path in dir_.glob("*.json"):
-        with open(path) as f:
+        with path.open() as f:
             obj = json.load(f)
 
-        for key in obj.keys():
+        for key in obj:
             key = clean_key(key)
             keys[key] += 1
 

@@ -1,20 +1,22 @@
-from typing import Any
+from typing import Any, ClassVar
 
-from ..base import Base
+from reconcile.pylib.base import Base
 
 
 class AdminUnit(Base):
-    country_lb = "dwc:country"
-    code_lb = "dwc:countryCode"
-    st_lb = "dwc:stateProvince"
-    co_lb = "dwc:county"
-    muni_lb = "dwc:municipality"
+    country_lb: ClassVar[str] = "dwc:country"
+    code_lb: ClassVar[str] = "dwc:countryCode"
+    st_lb: ClassVar[str] = "dwc:stateProvince"
+    co_lb: ClassVar[str] = "dwc:county"
+    muni_lb: ClassVar[str] = "dwc:municipality"
 
-    country_match = Base.get_aliases(country_lb)
-    code_match = Base.get_aliases(code_lb)
-    st_match = Base.get_aliases(st_lb, "dwc:locationState dwc:state dwc:province")
-    co_match = Base.get_aliases(co_lb)
-    muni_match = Base.get_aliases(muni_lb)
+    country_match: ClassVar[list[str]] = Base.get_aliases(country_lb)
+    code_match: ClassVar[list[str]] = Base.get_aliases(code_lb)
+    st_match: ClassVar[list[str]] = Base.get_aliases(
+        st_lb, "dwc:locationState dwc:state dwc:province"
+    )
+    co_match: ClassVar[list[str]] = Base.get_aliases(co_lb)
+    muni_match: ClassVar[list[str]] = Base.get_aliases(muni_lb)
 
     @classmethod
     def reconcile(

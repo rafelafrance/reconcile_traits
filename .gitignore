@@ -27,6 +27,7 @@ __pycache__
 .ipynb_checkpoints/
 *.egg-info/
 build/
+dist/
 
 # Environment
 .venv/
@@ -38,13 +39,11 @@ secrets/
 
 # Temp files
 temp/
-junk*
-
-# Experiments
 pilot/
 scratch/
 old/
 experiments/
+junk*
 
 # Notes
 papers/

@@ -1,12 +1,12 @@
-from typing import Any
+from typing import Any, ClassVar
 
-from .. import util
-from ..base import Base
+from reconcile.pylib import util
+from reconcile.pylib.base import Base
 
 
 class MaximumElevationInMeters(Base):
-    label = "dwc:maximumElevationInMeters"
-    aliases = Base.get_aliases(
+    label: ClassVar[str] = "dwc:maximumElevationInMeters"
+    aliases: ClassVar[list[str]] = Base.get_aliases(
         label,
         """
         dwc:maxElevationInMeters dwc:maxElevationInFeet dwc:maximumElevationInFeet""",
@@ -19,8 +19,9 @@ class MaximumElevationInMeters(Base):
         o_val = cls.search(other, cls.aliases)
 
         # Make sure what OpenAI returned is a string
-        if o_val and not isinstance(o_val, (str, float, int)):
-            raise ValueError(f"BAD FORMAT in OpenAI {cls.label} {o_val}")
+        if o_val and not isinstance(o_val, str | float | int):
+            msg = f"BAD FORMAT in OpenAI {cls.label} {o_val}"
+            raise ValueError(msg)
 
         o_val = util.to_positive_float(o_val) if o_val is not None else o_val
         t_val = traiter.get(cls.label)
@@ -48,9 +49,12 @@ class MaximumElevationInMeters(Base):
             if ft_to_m == t_val:
                 return {cls.label: ft_to_m}
 
-            raise ValueError(f"MISMATCH {cls.label}: {o_val} != {t_val}")
+            msg = f"MISMATCH {cls.label}: {o_val} != {t_val}"
+            raise ValueError(msg)
 
         if o_val and not t_val:
-            raise ValueError(f"NO TRAITER MATCH: {cls.label} {o_val}")
+            msg = f"NO TRAITER MATCH: {cls.label} {o_val}"
+            raise ValueError(msg)
 
-        raise ValueError(f"UNKNOWN error in {cls.label}")
+        msg = f"UNKNOWN error in {cls.label}"
+        raise ValueError(msg)

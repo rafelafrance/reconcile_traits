@@ -1,11 +1,11 @@
-from typing import Any
+from typing import Any, ClassVar
 
-from ..base import Base
+from reconcile.pylib.base import Base
 
 
 class Habitat(Base):
-    label = "dwc:habitat"
-    aliases = Base.get_aliases(label)
+    label: ClassVar[str] = "dwc:habitat"
+    aliases: ClassVar[list[str]] = Base.get_aliases(label)
 
     @classmethod
     def reconcile(

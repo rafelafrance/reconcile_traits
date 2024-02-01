@@ -1,11 +1,11 @@
-from typing import Any
+from typing import Any, ClassVar
 
-from ..base import Base
+from reconcile.pylib.base import Base
 
 
 class TaxonRank(Base):
-    label = "dwc:taxonRank"
-    aliases = Base.get_aliases(label, "dwc:verbatimTaxonRank")
+    label: ClassVar[str] = "dwc:taxonRank"
+    aliases: ClassVar[list[str]] = Base.get_aliases(label, "dwc:verbatimTaxonRank")
 
     @classmethod
     def reconcile(
@@ -23,4 +23,5 @@ class TaxonRank(Base):
         if o_val != t_val:
             return {cls.label: o_val}
 
-        raise ValueError(f"UNKNOWN error in {cls.label}")
+        msg = f"UNKNOWN error in {cls.label}"
+        raise ValueError(msg)

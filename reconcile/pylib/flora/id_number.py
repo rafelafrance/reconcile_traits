@@ -1,14 +1,14 @@
-from typing import Any
+from typing import Any, ClassVar
 
-from ..base import Base
+from reconcile.pylib.base import Base
 
 
 class IdNumber(Base):
-    acc_lb = "dwc:accessionNumber"
-    id_lb = "dwc:recordedByID"
+    acc_lb: ClassVar[str] = "dwc:accessionNumber"
+    id_lb: ClassVar[str] = "dwc:recordedByID"
 
-    acc_match = Base.get_aliases(acc_lb)
-    id_match = Base.get_aliases(id_lb, "dwc:recordedById")
+    acc_match: ClassVar[list[str]] = Base.get_aliases(acc_lb)
+    id_match: ClassVar[list[str]] = Base.get_aliases(id_lb, "dwc:recordedById")
 
     @classmethod
     def reconcile(

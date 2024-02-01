@@ -1,11 +1,11 @@
-from typing import Any
+from typing import Any, ClassVar
 
-from ..base import Base
+from reconcile.pylib.base import Base
 
 
 class VerbatimElevation(Base):
-    label = "dwc:verbatimElevation"
-    aliases = Base.get_aliases(label)
+    label: ClassVar[str] = "dwc:verbatimElevation"
+    aliases: ClassVar[list[str]] = Base.get_aliases(label)
 
     @classmethod
     def reconcile(
@@ -13,6 +13,6 @@ class VerbatimElevation(Base):
     ) -> dict[str, Any]:
         if o_val := cls.search(other, cls.aliases):
             return {cls.label: o_val}
-        elif t_val := traiter.get(cls.label):
+        if t_val := traiter.get(cls.label):
             return {cls.label: t_val}
         return {}

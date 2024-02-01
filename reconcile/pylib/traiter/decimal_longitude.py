@@ -1,11 +1,13 @@
-from typing import Any
+from typing import Any, ClassVar
 
-from ..base import Base
+from reconcile.pylib.base import Base
 
 
 class DecimalLongitude(Base):
-    label = "dwc:decimalLongitude"
-    aliases = Base.get_aliases(label, "dwc:longitude dwc:verbatimLongitude")
+    label: ClassVar[str] = "dwc:decimalLongitude"
+    aliases: ClassVar[list[str]] = Base.get_aliases(
+        label, "dwc:longitude dwc:verbatimLongitude"
+    )
 
     @classmethod
     def reconcile(

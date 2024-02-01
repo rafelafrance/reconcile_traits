@@ -1,13 +1,13 @@
-from typing import Any
+from typing import Any, ClassVar
 
-from ..base import Base
+from reconcile.pylib.base import Base
 
 
 class Job(Base):
-    rec_lb = "dwc:recordedBy"
-    id_lb = "dwc:identifiedBy"
-    rec_match = Base.get_aliases(rec_lb, """dwc:recordedByName""")
-    id_match = Base.get_aliases(id_lb)
+    rec_lb: ClassVar[str] = "dwc:recordedBy"
+    id_lb: ClassVar[str] = "dwc:identifiedBy"
+    rec_match: ClassVar[list[str]] = Base.get_aliases(rec_lb, """dwc:recordedByName""")
+    id_match: ClassVar[list[str]] = Base.get_aliases(id_lb)
 
     @classmethod
     def reconcile(

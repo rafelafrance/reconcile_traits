@@ -1,11 +1,11 @@
-from typing import Any
+from typing import Any, ClassVar
 
-from ..base import Base
+from reconcile.pylib.base import Base
 
 
 class VerbatimCoordinateSystem(Base):
-    label = "dwc:verbatimCoordinateSystem"
-    aliases = Base.get_aliases(label, "dwc:coordinateSystem")
+    label: ClassVar[str] = "dwc:verbatimCoordinateSystem"
+    aliases: ClassVar[list[str]] = Base.get_aliases(label, "dwc:coordinateSystem")
 
     @classmethod
     def reconcile(

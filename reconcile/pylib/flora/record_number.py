@@ -1,12 +1,13 @@
-from typing import Any
+from typing import Any, ClassVar
 
-from ..base import Base
-from ..darwin_core import SEP
+from reconcile.pylib.base import Base
 
 
 class RecordNumber(Base):
-    label = "dwc:recordNumber"
-    aliases = Base.get_aliases(label, "dwc:record dwc:recordId dwc:recordedNumber")
+    label: ClassVar[str] = "dwc:recordNumber"
+    aliases: ClassVar[list[str]] = Base.get_aliases(
+        label, "dwc:record dwc:recordId dwc:recordedNumber"
+    )
 
     @classmethod
     def reconcile(

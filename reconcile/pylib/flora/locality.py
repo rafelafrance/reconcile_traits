@@ -1,12 +1,12 @@
-from typing import Any
+from typing import Any, ClassVar
 
-from ..base import Base
-from ..darwin_core import SEP
+from reconcile.pylib.base import Base
+from reconcile.pylib.darwin_core import SEP
 
 
 class Locality(Base):
-    label = "dwc:verbatimLocality"
-    loc_match = Base.get_aliases(
+    label: ClassVar[str] = "dwc:verbatimLocality"
+    loc_match: ClassVar[list[str]] = Base.get_aliases(
         label,
         """
         dwc:locality dwc:localityDescription dwc:localityDetails
@@ -15,14 +15,16 @@ class Locality(Base):
         dwc:locationCity dwc:city
         """,
     )
-    rem_match = Base.get_aliases(
+    rem_match: ClassVar[list[str]] = Base.get_aliases(
         "dwc:locationRemarks dwc:localityRemarks dwc:locationNotes"
     )
 
-    sub_match = loc_match + [loc.removeprefix("dwc:") for loc in loc_match]
+    sub_match: ClassVar[list[str]] = loc_match + [
+        loc.removeprefix("dwc:") for loc in loc_match
+    ]
 
     @classmethod
-    def reconcile(
+    def reconcile(  # noqa: C901
         cls, traiter: dict[str, Any], other: dict[str, Any], text: str
     ) -> dict[str, Any]:
         o_locality = cls.search(other, cls.loc_match)

@@ -6,7 +6,7 @@ import random
 import textwrap
 from pathlib import Path
 
-from pylib import log
+from util.pylib import log
 
 
 def main():
@@ -15,10 +15,10 @@ def main():
 
     random.seed(args.seed)
 
-    text_paths = set(p.stem for p in args.text_dir.glob("*.txt"))
-    openai_paths = set(p.stem for p in args.openai_dir.glob("*.json"))
-    traiter_paths = set(p.stem for p in args.traiter_dir.glob("*.json"))
-    reconciled_paths = set(p.stem for p in args.reconciled_dir.glob("*.json"))
+    text_paths = {p.stem for p in args.text_dir.glob("*.txt")}
+    openai_paths = {p.stem for p in args.openai_dir.glob("*.json")}
+    traiter_paths = {p.stem for p in args.traiter_dir.glob("*.json")}
+    reconciled_paths = {p.stem for p in args.reconciled_dir.glob("*.json")}
 
     paths = sorted(text_paths & openai_paths & traiter_paths & reconciled_paths)
 
@@ -27,7 +27,7 @@ def main():
     traiter = len(traiter_paths)
     openai = len(openai_paths)
 
-    logging.info(
+    msg = (
         f"Text: {text}, "
         f"Reconciled: {reconciled}, "
         f"Traiter: {traiter}, "
@@ -36,9 +36,11 @@ def main():
         f"All numbers the same: "
         f"{text == openai == reconciled == traiter == len(paths)}."
     )
+    logging.info(msg)
+
     sample = random.sample(paths, args.sample)
 
-    with open(args.csv_file, "w") as out:
+    with args.csv_file.open("w") as out:
         writer = csv.writer(out)
         writer.writerow(
             ["name", "ocr_text", "reconciled", "gpt4_output", "traiter_output"]
@@ -46,19 +48,19 @@ def main():
 
         for stem in sample:
             path = args.text_dir / f"{stem}.txt"
-            with open(path) as f:
+            with path.open() as f:
                 text = f.read()
 
             path = args.reconciled_dir / f"{stem}.json"
-            with open(path) as f:
+            with path.open() as f:
                 reconciled = f.read()
 
             path = args.openai_dir / f"{stem}.json"
-            with open(path) as f:
+            with path.open() as f:
                 openai = f.read()
 
             path = args.traiter_dir / f"{stem}.json"
-            with open(path) as f:
+            with path.open() as f:
                 traiter = f.read()
 
             writer.writerow([stem, text, reconciled, openai, traiter])

@@ -1,11 +1,11 @@
-from typing import Any
+from typing import Any, ClassVar
 
-from ..base import Base
+from reconcile.pylib.base import Base
 
 
 class Sex(Base):
-    label = "dwc:sex"
-    aliases = Base.get_aliases(label, "sex")
+    label: ClassVar[str] = "dwc:sex"
+    aliases: ClassVar[list[str]] = Base.get_aliases(label, "sex")
 
     @classmethod
     def reconcile(

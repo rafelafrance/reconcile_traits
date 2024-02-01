@@ -12,7 +12,7 @@ def read_dwc_terms():
     core, dublin = {}, {}
 
     path = Path(__file__).parent / "dwc_terms.csv"
-    with open(path) as f:
+    with path.open() as f:
         for row in csv.DictReader(f):
             name = row["term_localName"]
             name = name[0].lower() + name[1:]

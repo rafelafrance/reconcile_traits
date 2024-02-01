@@ -1,6 +1,6 @@
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any
-from typing import Callable
+from typing import Any, ClassVar
 
 from . import util
 
@@ -18,12 +18,14 @@ class Template:
 
 
 class Base:
-    nil = "null none not provided not specified".casefold()
+    nil: ClassVar[str] = "null none not provided not specified".casefold()
 
-    unit_csv = Path(__file__).parent / "unit_length_terms.csv"
-    tic_csv = Path(__file__).parent / "unit_tic_terms.csv"
-    factors_cm = util.term_data((unit_csv, tic_csv), "factor_cm", float)
-    factors_m = {k: v / 100.0 for k, v in factors_cm.items()}
+    unit_csv: ClassVar[Path] = Path(__file__).parent / "unit_length_terms.csv"
+    tic_csv: ClassVar[Path] = Path(__file__).parent / "unit_tic_terms.csv"
+    factors_cm: ClassVar[list[float]] = util.term_data(
+        (unit_csv, tic_csv), "factor_cm", float
+    )
+    factors_m: ClassVar[list[float]] = {k: v / 100.0 for k, v in factors_cm.items()}
 
     @classmethod
     def reconcile(
@@ -43,7 +45,7 @@ class Base:
     @classmethod
     def wildcard(cls, other, pattern: str, default=""):
         pattern = pattern.casefold()
-        for key in other.keys():
+        for key in other:
             folded = key.casefold()
             if folded in cls.nil:
                 return default
