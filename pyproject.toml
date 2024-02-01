@@ -13,7 +13,7 @@ readme = "README.md"
 dependencies = [
     "Jinja2",
 ]
-ptional-dependencies.dev = [
+optional-dependencies.dev = [
     "build",
     "pre-commit",
     "pre-commit-hooks",
