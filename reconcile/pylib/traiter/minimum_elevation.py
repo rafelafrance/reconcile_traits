@@ -1,7 +1,7 @@
 from typing import Any, ClassVar
 
-from reconcile.pylib import util
-from reconcile.pylib.base import Base
+from .. import util
+from ..base import Base
 
 
 class MinimumElevationInMeters(Base):

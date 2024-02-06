@@ -4,8 +4,8 @@ from typing import Any, ClassVar, NamedTuple
 
 from dateutil import parser
 
-from reconcile.pylib import darwin_core as dwc
-from reconcile.pylib.base import Base
+from .. import darwin_core as dwc
+from ..base import Base
 
 
 class TraiterDate(NamedTuple):

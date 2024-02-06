@@ -1,6 +1,6 @@
 from typing import Any, ClassVar
 
-from reconcile.pylib.base import Base
+from ..base import Base
 
 
 class Habitat(Base):

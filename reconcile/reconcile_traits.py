@@ -35,9 +35,8 @@ from pylib.traiter.minimum_elevation import MinimumElevationInMeters
 from pylib.traiter.verbatim_coordinates import VerbatimCoordinates
 from pylib.traiter.verbatim_elevation import VerbatimElevation
 from pylib.traiter.verbatim_system import VerbatimCoordinateSystem
+from pylib.util import clean_key
 from util.pylib import log
-
-MIN_LEN = 2
 
 
 class Verbose(IntEnum):
@@ -204,20 +203,6 @@ def main():
         msg = f"Total errors: {total_errors}"
         logging.info(msg)
     log.finished()
-
-
-def clean_key(key) -> str:
-    key = key.removeprefix("dcterms:").removeprefix("dnz:").removeprefix("DwC:")
-    key = key.removeprefix("dwc:").removeprefix("dwc").removeprefix("dwc-")
-    key = key.removeprefix("dc:").removeprefix("Dc:")
-    key = key.strip(":")
-    key = key.strip()
-
-    if len(key) > MIN_LEN:
-        key = key[0].lower() + key[1:]
-
-    key = dwc.ns(key)
-    return key
 
 
 def show_missed_keys(rows, verbose):

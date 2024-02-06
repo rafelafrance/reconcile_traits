@@ -6,6 +6,10 @@ from pathlib import Path
 from typing import Any
 from zipfile import ZipFile
 
+from . import darwin_core as dwc
+
+MIN_LEN = 2
+
 
 def to_positive_float(value: Any) -> float | None:
     if isinstance(value, str):
@@ -44,3 +48,17 @@ def read_terms(csv_path: Path | Iterable[Path]) -> list[dict]:
                 reader = csv.DictReader(term_file)
                 terms += list(reader)
     return terms
+
+
+def clean_key(key) -> str:
+    key = key.removeprefix("dcterms:").removeprefix("dnz:").removeprefix("DwC:")
+    key = key.removeprefix("dwc:").removeprefix("dwc").removeprefix("dwc-")
+    key = key.removeprefix("dc:").removeprefix("Dc:")
+    key = key.strip(":")
+    key = key.strip()
+
+    if len(key) > MIN_LEN:
+        key = key[0].lower() + key[1:]
+
+    key = dwc.ns(key)
+    return key

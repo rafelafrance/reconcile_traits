@@ -1,7 +1,7 @@
 from typing import Any, ClassVar
 
-from reconcile.pylib.base import Base
-from reconcile.pylib.darwin_core import SEP
+from ..base import Base
+from ..darwin_core import SEP
 
 
 class CoordinateUncertainty(Base):
