@@ -6,30 +6,30 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
 
-import pylib.darwin_core as dwc
-from pylib.flora.admin_unit import AdminUnit
-from pylib.flora.id_number import IdNumber
-from pylib.flora.job import Job
-from pylib.flora.locality import Locality
-from pylib.flora.record_number import RecordNumber
-from pylib.flora.sex import Sex
-from pylib.flora.taxon_assoc import TaxonAssociation
-from pylib.flora.taxon_auth import TaxonAuthority
-from pylib.flora.taxon_name import TaxonName
-from pylib.flora.taxon_rank import TaxonRank
-from pylib.traiter.coordinate_precision import CoordinatePrecision
-from pylib.traiter.coordinate_uncertainty import CoordinateUncertainty
-from pylib.traiter.decimal_latitude import DecimalLatitude
-from pylib.traiter.decimal_longitude import DecimalLongitude
-from pylib.traiter.event_date import EventDate
-from pylib.traiter.geodetic_datum import GeodeticDatum
-from pylib.traiter.habitat import Habitat
-from pylib.traiter.maximum_elevation import MaximumElevationInMeters
-from pylib.traiter.minimum_elevation import MinimumElevationInMeters
-from pylib.traiter.verbatim_coordinates import VerbatimCoordinates
-from pylib.traiter.verbatim_elevation import VerbatimElevation
-from pylib.traiter.verbatim_system import VerbatimCoordinateSystem
-from pylib.util import clean_key
+import reconcile.pylib.darwin_core as dwc
+from reconcile.pylib.flora.admin_unit import AdminUnit
+from reconcile.pylib.flora.id_number import IdNumber
+from reconcile.pylib.flora.job import Job
+from reconcile.pylib.flora.locality import Locality
+from reconcile.pylib.flora.record_number import RecordNumber
+from reconcile.pylib.flora.sex import Sex
+from reconcile.pylib.flora.taxon_assoc import TaxonAssociation
+from reconcile.pylib.flora.taxon_auth import TaxonAuthority
+from reconcile.pylib.flora.taxon_name import TaxonName
+from reconcile.pylib.flora.taxon_rank import TaxonRank
+from reconcile.pylib.traiter.coordinate_precision import CoordinatePrecision
+from reconcile.pylib.traiter.coordinate_uncertainty import CoordinateUncertainty
+from reconcile.pylib.traiter.decimal_latitude import DecimalLatitude
+from reconcile.pylib.traiter.decimal_longitude import DecimalLongitude
+from reconcile.pylib.traiter.event_date import EventDate
+from reconcile.pylib.traiter.geodetic_datum import GeodeticDatum
+from reconcile.pylib.traiter.habitat import Habitat
+from reconcile.pylib.traiter.maximum_elevation import MaximumElevationInMeters
+from reconcile.pylib.traiter.minimum_elevation import MinimumElevationInMeters
+from reconcile.pylib.traiter.verbatim_coordinates import VerbatimCoordinates
+from reconcile.pylib.traiter.verbatim_elevation import VerbatimElevation
+from reconcile.pylib.traiter.verbatim_system import VerbatimCoordinateSystem
+from reconcile.pylib.util import clean_key
 
 CHOICES = ["count-bad-json", "count-label-problems"]
 

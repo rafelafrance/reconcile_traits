@@ -28,6 +28,11 @@ sample-reconcile-traits = "sample_reconcile.reconcile_traits:main"
 [tool.setuptools]
 py-modules = []
 
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["reconcile"]
+namespaces = false
+
 [tool.ruff]
 target-version = "py311"
 
