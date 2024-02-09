@@ -23,7 +23,6 @@ optional-dependencies.dev = [
 
 [project.scripts]
 reconcile-traits = "reconcile.reconcile_traits:main"
-sample-reconcile-traits = "sample_reconcile.reconcile_traits:main"
 
 [tool.setuptools]
 py-modules = []
@@ -38,7 +37,7 @@ target-version = "py311"
 
 show-fixes = true
 
-select = [
+lint.select = [
     "F",
     "E",
     "W",
@@ -91,7 +90,7 @@ select = [
     "RUF",
 ]
 
-ignore = [
+lint.ignore = [
     "COM812",  # Trailing comma missing
     "D100",  # Missing docstring in public module
     "D101",  # Missing docstring in public class
