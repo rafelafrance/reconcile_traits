@@ -1,6 +1,6 @@
 from typing import Any, ClassVar
 
-from ..base import Base
+from reconcile.pylib.base import Base
 
 
 class AdminUnit(Base):

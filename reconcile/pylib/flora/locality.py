@@ -1,7 +1,7 @@
 from typing import Any, ClassVar
 
-from ..base import Base
-from ..darwin_core import SEP
+from reconcile.pylib.base import Base
+from reconcile.pylib.darwin_core import SEP
 
 
 class Locality(Base):

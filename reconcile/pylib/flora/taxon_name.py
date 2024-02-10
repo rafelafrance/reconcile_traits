@@ -1,6 +1,6 @@
 from typing import Any, ClassVar, NamedTuple
 
-from ..base import Base
+from reconcile.pylib.base import Base
 
 
 class Label(NamedTuple):

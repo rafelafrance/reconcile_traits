@@ -1,7 +1,7 @@
 from typing import Any, ClassVar
 
-from .. import util
-from ..base import Base
+from reconcile.pylib import util
+from reconcile.pylib.base import Base
 
 
 class MaximumElevationInMeters(Base):
