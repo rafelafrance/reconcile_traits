@@ -9,7 +9,7 @@ class Locality(Base):
     loc_match: ClassVar[list[str]] = Base.get_aliases(
         label,
         """
-        dwc:locality dwc:localityDescription dwc:localityDetails
+        dwc:locality dwc:localityDescription dwc:localityDetails locationDetails
         dwc:Location dc:Location dwc:physicalLocation dwc:specificLocality
         dwc:recordedLocation dwc:specificLocality dwc:exactLocation
         dwc:locationCity dwc:city
@@ -38,8 +38,6 @@ class Locality(Base):
         if text.find(t_parts) > -1:
             t_locality = t_parts
 
-        obj = {}
-
         # Get verbatim locality
         locality = ""
 
@@ -57,8 +55,8 @@ class Locality(Base):
             locality = t_locality
 
         # Extend locality
-        if t_locality and locality in t_locality:
-            locality = t_locality
+        # if t_locality and locality in t_locality:
+        #     locality = t_locality
 
         # Get location remarks
         if o_remarks and isinstance(o_remarks, str) and o_remarks not in locality:
@@ -69,6 +67,8 @@ class Locality(Base):
             else:
                 locality += locality + SEP + o_remarks
 
+        # Format output
+        obj = {}
         if locality:
             obj[cls.label] = locality
 

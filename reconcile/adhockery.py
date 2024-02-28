@@ -7,16 +7,16 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 import reconcile.pylib.darwin_core as dwc
-from reconcile.pylib.flora.admin_unit import AdminUnit
-from reconcile.pylib.flora.id_number import IdNumber
-from reconcile.pylib.flora.job import Job
-from reconcile.pylib.flora.locality import Locality
-from reconcile.pylib.flora.record_number import RecordNumber
-from reconcile.pylib.flora.sex import Sex
-from reconcile.pylib.flora.taxon_assoc import TaxonAssociation
-from reconcile.pylib.flora.taxon_auth import TaxonAuthority
-from reconcile.pylib.flora.taxon_name import TaxonName
-from reconcile.pylib.flora.taxon_rank import TaxonRank
+from reconcile.pylib.labels.admin_unit import AdminUnit
+from reconcile.pylib.labels.id_number import IdNumber
+from reconcile.pylib.labels.job import Job
+from reconcile.pylib.labels.locality import Locality
+from reconcile.pylib.labels.record_number import RecordNumber
+from reconcile.pylib.labels.sex import Sex
+from reconcile.pylib.labels.taxon_assoc import TaxonAssociation
+from reconcile.pylib.labels.taxon_auth import TaxonAuthority
+from reconcile.pylib.labels.taxon_name import TaxonName
+from reconcile.pylib.labels.taxon_rank import TaxonRank
 from reconcile.pylib.traiter.coordinate_precision import CoordinatePrecision
 from reconcile.pylib.traiter.coordinate_uncertainty import CoordinateUncertainty
 from reconcile.pylib.traiter.decimal_latitude import DecimalLatitude

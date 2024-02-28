@@ -43,7 +43,7 @@ def main():
     with args.csv_file.open("w") as out:
         writer = csv.writer(out)
         writer.writerow(
-            ["name", "ocr_text", "reconciled", "gpt4_output", "traiter_output"]
+            ["name", "ocr_text", "reconciled", "traiter_output", "gpt4_output"]
         )
 
         for stem in sample:
@@ -63,7 +63,7 @@ def main():
             with path.open() as f:
                 traiter = f.read()
 
-            writer.writerow([stem, text, reconciled, openai, traiter])
+            writer.writerow([stem, text, reconciled, traiter, openai])
 
     log.finished()
 

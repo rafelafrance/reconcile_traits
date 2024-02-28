@@ -24,16 +24,20 @@ class AdminUnit(Base):
     ) -> dict[str, str]:
         obj = {}
 
-        if val := cls.search(other, cls.country_match):
+        if val := traiter.get(cls.country_lb):
             obj[cls.country_lb] = val
 
         if val := cls.search(other, cls.code_match):
             obj[cls.code_lb] = val
 
-        if val := cls.search(other, cls.st_match):
+        if val := traiter.get(cls.st_lb):
+            obj[cls.st_lb] = val
+        elif val := cls.search(other, cls.st_match):
             obj[cls.st_lb] = val
 
-        if val := cls.search(other, cls.co_match):
+        if val := traiter.get(cls.co_lb):
+            obj[cls.co_lb] = val
+        elif val := cls.search(other, cls.co_match):
             obj[cls.co_lb] = val
 
         if val := cls.search(other, cls.muni_match):

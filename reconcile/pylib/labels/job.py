@@ -1,5 +1,6 @@
 from typing import Any, ClassVar
 
+from reconcile.pylib import darwin_core as dwc
 from reconcile.pylib.base import Base
 
 
@@ -18,9 +19,12 @@ class Job(Base):
 
         obj = {}
 
-        # Just use whatever is in the OpenAI output
+        # Prefer to use whatever is in the OpenAI output
         if o_rec:
-            obj[cls.rec_lb] = o_rec
+            if isinstance(o_rec, list):
+                obj[cls.rec_lb] = dwc.SEP.join([j for j in o_rec if isinstance(j, str)])
+            else:
+                obj[cls.rec_lb] = o_rec
 
         if o_id:
             obj[cls.id_lb] = o_id
