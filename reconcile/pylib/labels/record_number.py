@@ -17,20 +17,3 @@ class RecordNumber(Base):
         if val := cls.search(other, cls.aliases):
             return {cls.label: val}
         return {}
-
-        # vals = traiter.get(cls.label)
-
-        # Handle case where it's missing in both
-        # if not vals:
-        #     return {}
-
-        # Split the values and take the last one
-        # The record number is most often at the end of the label
-        # vals = vals.split(SEP)
-        #
-        # longest = max(len(v) for v in vals)
-        # threshold = 2 if longest > 2 else 1
-        #
-        # vals = [v for v in vals if len(v) > threshold]
-        #
-        # return {cls.label: vals[-1]} if vals else {}

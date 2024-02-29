@@ -91,6 +91,8 @@ class Row:
         self.missed = set(self.openai.keys()) - set(self.reconciled.keys())
 
     def save_traits(self, parsed_dir):
+        keys = sorted(self.reconciled.keys())
+        self.reconciled = {k: self.reconciled[k] for k in keys}
         path = parsed_dir / f"{self.stem}.json"
         with path.open("w") as f:
             json.dump(self.reconciled, f, indent=4)
@@ -165,9 +167,9 @@ def main():
             VerbatimCoordinateSystem,
             VerbatimCoordinates,
             AdminUnit,
-            IdNumber,
             Job,  # Put Job before RecordNumber because Job can fill RecordNumber
             RecordNumber,  # Put after Job, so it can override whatever Job did
+            IdNumber,
             Locality,
             Sex,
             TaxonAssociation,
@@ -203,6 +205,7 @@ def main():
 
         msg = f"Total errors: {total_errors}"
         logging.info(msg)
+
     log.finished()
 
 

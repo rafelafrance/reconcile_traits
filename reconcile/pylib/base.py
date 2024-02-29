@@ -18,7 +18,7 @@ class Template:
 
 
 class Base:
-    nil: ClassVar[str] = "null none not provided not specified".casefold()
+    nil: ClassVar[str] = "null none not provided not specified".casefold().split()
 
     unit_csv: ClassVar[Path] = Path(__file__).parent / "unit_length_terms.csv"
     tic_csv: ClassVar[Path] = Path(__file__).parent / "unit_tic_terms.csv"
