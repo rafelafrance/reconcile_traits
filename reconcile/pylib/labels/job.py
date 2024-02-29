@@ -28,10 +28,13 @@ class Job(Base):
             else:
                 obj[cls.rec_lb] = o_rec
 
-        if match := re.search(r"\s*\d+$", obj[cls.rec_lb]):
-            obj[cls.rec_lb] = obj[cls.rec_lb].removesuffix(match.group(0))
-            obj[cls.record_no] = match.group(0).strip()
+        # Handle when the job and record number are merged into one field
+        if obj.get(cls.rec_lb) and isinstance(obj[cls.rec_lb], str):  # noqa: SIM102
+            if match := re.search(r"\s*\d+$", obj[cls.rec_lb]):
+                obj[cls.rec_lb] = obj[cls.rec_lb].removesuffix(match.group(0))
+                obj[cls.record_no] = match.group(0).strip()
 
+        # Get the identified by field
         if o_id:
             obj[cls.id_lb] = o_id
 

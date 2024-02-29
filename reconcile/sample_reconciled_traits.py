@@ -33,8 +33,6 @@ def main():
         f"Traiter: {traiter}, "
         f"OpenAI: {openai}, "
         f"Intersection: {len(paths)}, "
-        f"All numbers the same: "
-        f"{text == openai == reconciled == traiter == len(paths)}."
     )
     logging.info(msg)
 
