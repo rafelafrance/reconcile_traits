@@ -15,13 +15,13 @@ class TaxonRank(Base):
         t_val = traiter.get(cls.label, "")
 
         if (o_val.casefold() == t_val.casefold()) or (o_val and not t_val):
-            return {cls.label: o_val}
+            return {cls.label: o_val} if o_val else {}
 
         if not o_val and t_val:
-            return {cls.label: t_val}
+            return {cls.label: t_val} if t_val else {}
 
         if o_val != t_val:
-            return {cls.label: o_val}
+            return {cls.label: o_val} if o_val else {}
 
         msg = f"UNKNOWN error in {cls.label}"
         raise ValueError(msg)

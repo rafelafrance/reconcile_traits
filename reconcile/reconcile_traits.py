@@ -166,10 +166,10 @@ def main():
             VerbatimCoordinates,
             AdminUnit,
             IdNumber,
-            RecordNumber,
+            Job,  # Put Job before RecordNumber because Job can fill RecordNumber
+            RecordNumber,  # Put after Job, so it can override whatever Job did
             Locality,
             Sex,
-            Job,
             TaxonAssociation,
             TaxonAuthority,
             TaxonName,

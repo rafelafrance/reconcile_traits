@@ -32,8 +32,6 @@ class AdminUnit(Base):
 
         if val := traiter.get(cls.st_lb):
             obj[cls.st_lb] = val
-        elif val := cls.search(other, cls.st_match):
-            obj[cls.st_lb] = val
 
         if val := traiter.get(cls.co_lb):
             obj[cls.co_lb] = val
