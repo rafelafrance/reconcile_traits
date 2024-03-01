@@ -10,6 +10,7 @@ class RecordNumber(Base):
         label, "dwc:record dwc:recordId dwc:recordedNumber dwc:catalogNumber"
     )
     is_labeled_key: ClassVar[str] = "recordNumberIsLabeled"
+    cat_label: ClassVar[str] = "dwc:catalogNumber"
 
     @classmethod
     def reconcile(
@@ -20,6 +21,11 @@ class RecordNumber(Base):
             dwc.is_labeled(traiter, cls.label, cls.is_labeled_key)
             and dwc.field_len(traiter[cls.label]) == 1
         ):
+            return {cls.label: traiter[cls.label]}
+
+        # Sometimes GPT labels the recordNuber as catalogNumber
+        # If it matches what's in the traiter version, use it
+        if traiter.get(cls.label) and traiter[cls.label] == other.get(cls.cat_label):
             return {cls.label: traiter[cls.label]}
 
         # Default to the GPT version if there is one
