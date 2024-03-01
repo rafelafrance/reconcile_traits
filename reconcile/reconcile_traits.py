@@ -15,11 +15,12 @@ from util.pylib import log
 
 import reconcile.pylib.darwin_core as dwc
 from reconcile.pylib.base import Template
+from reconcile.pylib.labels.accession_number import AccessionNumber
 from reconcile.pylib.labels.admin_unit import AdminUnit
-from reconcile.pylib.labels.id_number import IdNumber
 from reconcile.pylib.labels.job import Job
 from reconcile.pylib.labels.locality import Locality
 from reconcile.pylib.labels.record_number import RecordNumber
+from reconcile.pylib.labels.recorded_by_id import RecordedById
 from reconcile.pylib.labels.sex import Sex
 from reconcile.pylib.labels.taxon_assoc import TaxonAssociation
 from reconcile.pylib.labels.taxon_auth import TaxonAuthority
@@ -169,7 +170,8 @@ def main():
             AdminUnit,
             Job,  # Put Job before RecordNumber because Job can fill RecordNumber
             RecordNumber,  # Put after Job, so it can override whatever Job did
-            IdNumber,
+            AccessionNumber,
+            RecordedById,
             Locality,
             Sex,
             TaxonAssociation,

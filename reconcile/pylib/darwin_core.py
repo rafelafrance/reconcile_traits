@@ -7,6 +7,8 @@ DC = "dc:"
 SEP = " | "
 FIELD_SEP = " ~ "
 
+DYN = "dwc:dynamicProperties"
+
 
 def read_dwc_terms():
     core, dublin = {}, {}
@@ -35,3 +37,11 @@ CORE, DUBLIN = read_dwc_terms()
 def ns(name):
     namespace = DC if name in DUBLIN else DWC
     return name if name.startswith(namespace) else namespace + name
+
+
+def is_labeled(dct, label, is_labeled_key):
+    return dct.get(label) and dct.get(DYN) and dct[DYN].get(is_labeled_key)
+
+
+def field_len(field: str):
+    return len(field.split(SEP))

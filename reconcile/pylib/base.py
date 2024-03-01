@@ -18,7 +18,7 @@ class Template:
 
 
 class Base:
-    nil: ClassVar[str] = "null none not provided not specified".casefold().split()
+    nil: ClassVar[list[str]] = "null none not provided not specified".split()
 
     unit_csv: ClassVar[Path] = Path(__file__).parent / "unit_length_terms.csv"
     tic_csv: ClassVar[Path] = Path(__file__).parent / "unit_tic_terms.csv"
@@ -37,7 +37,7 @@ class Base:
     def search(cls, other: dict[str, Any], aliases: list[str], default: Any = ""):
         for alias in aliases:
             if value := other.get(alias):
-                if isinstance(value, str) and value.casefold() in cls.nil:
+                if isinstance(value, str) and value.lower() in cls.nil:
                     return default
                 return value
         return default

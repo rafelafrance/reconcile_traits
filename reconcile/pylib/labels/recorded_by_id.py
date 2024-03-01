@@ -4,12 +4,10 @@ import reconcile.pylib.darwin_core as dwc
 from reconcile.pylib.base import Base
 
 
-class RecordNumber(Base):
-    label: ClassVar[str] = "dwc:recordNumber"
-    aliases: ClassVar[list[str]] = Base.get_aliases(
-        label, "dwc:record dwc:recordId dwc:recordedNumber dwc:catalogNumber"
-    )
-    is_labeled_key: ClassVar[str] = "recordNumberIsLabeled"
+class RecordedById(Base):
+    label: ClassVar[str] = "dwc:recordedByID"
+    aliases: ClassVar[list[str]] = Base.get_aliases(label, "dwc:recordedById")
+    is_labeled_key: ClassVar[str] = "recordedByIDIsLabeled"
 
     @classmethod
     def reconcile(
