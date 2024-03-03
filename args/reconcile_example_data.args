@@ -1,0 +1,4 @@
+--text-dir=sample_data/dl_random_2023-09-14_typewritten/dl_random_2023-09-14_typewritten_ocr
+--traiter-dir=sample_data/dl_random_2023-09-14_typewritten/dl_random_2023-09-14_typewritten_traiter
+--openai-dir=sample_data/dl_random_2023-09-14_typewritten/dl_random_2023-09-14_typewritten_gpt4_clean
+--formatted-dir=sample_data/dl_random_2023-09-14_typewritten/dl_random_2023-09-14_typewritten_reconciled

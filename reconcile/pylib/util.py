@@ -51,11 +51,8 @@ def read_terms(csv_path: Path | Iterable[Path]) -> list[dict]:
 
 
 def clean_key(key) -> str:
-    key = key.removeprefix("dcterms:").removeprefix("dnz:").removeprefix("DwC:")
-    key = key.removeprefix("dwc:").removeprefix("dwc").removeprefix("dwc-")
-    key = key.removeprefix("dc:").removeprefix("Dc:")
-    key = key.strip(":")
-    key = key.strip()
+    key = re.sub(r"^(dcterms|dnz|dwc|dc)[:\-]", "", key, flags=re.IGNORECASE)
+    key = key.strip(":").strip()
 
     if len(key) > MIN_LEN:
         key = key[0].lower() + key[1:]

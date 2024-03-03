@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "reconcile_traits"
-version = "0.2.0"
+version = "0.1.0"
 description = ""
 license = {file = "LICENSE"}
 authors = [{name="Raphael LaFrance", email="raphael.lafrance@gmail.com"}]
